@@ -1,0 +1,24 @@
+﻿#region
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+#endregion
+
+// title:  #PROJECTNAME# v.#VERSION#
+// author: #AUTHOR#
+// desc:   Date: #CREATIONDATE#
+// script: C#
+
+public class #SCRIPTNAME# : Tic80 {
+
+	// Use this for initialization
+	public override void init () {
+		#NOTRIM#
+	}
+		
+	// TIC is called 60 times every second
+	public override void TIC () {
+		#NOTRIM#
+	}
+}

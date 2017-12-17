@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 16d046694f0f3534c90063d210f06cec
+timeCreated: 1511678331
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 6
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: TIC-80 wide font
+  fontNames:
+  - TIC-80 wide
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 2
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

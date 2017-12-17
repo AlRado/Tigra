@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: d0ff86b69450440469f567f5a51fd23f
+timeCreated: 1512018513
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 6
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: TIC computer 6x6 font
+  fontNames:
+  - TIC-80 regular
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 2
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
