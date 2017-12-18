@@ -21,7 +21,7 @@ public class Palettes : MonoBehaviour {
     EISLAND
   }
 
-  public static Dictionary<Palette, List<Color>> COLORS = new Dictionary<Palette, List<Color>> () { 
+  public static Dictionary<Palette, List<Color32>> COLORS = new Dictionary<Palette, List<Color32>> () { 
     { Palette.DB16, parsePalette ("140c1c44243430346d4e4a4e854c30346524d04648757161597dced27d2c8595a16daa2cd2aa996dc2cadad45edeeed6") }, 
     { Palette.PICO8, parsePalette ("0000007e25531d2b535f574fab5236008751ff004d83769cff77a8ffa300c2c3c700e756ffccaa29adfffff024fff1e8") }, 
     { Palette.ARNE16, parsePalette ("0000001b2632005784493c2ba4642244891abe26332f484e31a2f2eb89319d9d9da3ce27e06f8bb2dceff7e26bffffff") }, 
@@ -38,9 +38,9 @@ public class Palettes : MonoBehaviour {
     { Palette.EISLAND, parsePalette ("051625794765686086567864ca657e8686918184abcc8d867ea78839d4b98dbcd29dc085edc38de6d1d1f5e17af6f6bf") },
   };
 
-  private static List<Color> parsePalette (string palette) {
+  private static List<Color32> parsePalette (string palette) {
     var count = palette.Length / 6;
-    var colorList = new List<Color> ();
+    var colorList = new List<Color32> ();
     for (int i = 0; i < count; i++) {
       colorList.Add (HexToColor (palette.Substring (i * 6, 6)));
     }
@@ -48,24 +48,24 @@ public class Palettes : MonoBehaviour {
     return colorList;
   }
 
-  private static Color HexToColor (string hex) {
-    float r = byte.Parse (hex.Substring (0, 2), System.Globalization.NumberStyles.HexNumber);
-    float g = byte.Parse (hex.Substring (2, 2), System.Globalization.NumberStyles.HexNumber);
-    float b = byte.Parse (hex.Substring (4, 2), System.Globalization.NumberStyles.HexNumber);
-    return new Color (r / 255, (float) g / 255, b / 255, 1);
+  private static Color32 HexToColor (string hex) {
+    var r = byte.Parse (hex.Substring (0, 2), System.Globalization.NumberStyles.HexNumber);
+    var g = byte.Parse (hex.Substring (2, 2), System.Globalization.NumberStyles.HexNumber);
+    var b = byte.Parse (hex.Substring (4, 2), System.Globalization.NumberStyles.HexNumber);
+    return new Color32 (r, g, b, 255);
   }
 
-  public static Color GetColor (int colorIx, Palette palType) {
+  public static Color32 GetColor (int colorIx, Palette palType) {
     var palette = COLORS[palType];
     var newColorIx = Mathf.Abs(colorIx) % (COLORS.Count+2);
 
     return palette[newColorIx];
   }
 
-  public static int GetColorIx (Color color, Palette palType) {
+  public static int GetColorIx (Color32 color, Palette palType) {
     var palette = COLORS[palType];
 
-    return palette.FindIndex (c => c == color);
+    return palette.FindIndex (c => Object.Equals (c, color));
   }
 
 }

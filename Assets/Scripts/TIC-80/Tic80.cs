@@ -13,8 +13,8 @@ using UnityEngine.UI;
 [RequireComponent (typeof (Tic80Config))]
 public abstract class Tic80 : MonoBehaviour {
 
-  private Dictionary<int, Color[]> clsColors = new Dictionary<int, Color[]> ();
-  private Dictionary<int, Color[]> borderColors = new Dictionary<int, Color[]> ();
+  private Dictionary<int, Color32[]> clsColors = new Dictionary<int, Color32[]> ();
+  private Dictionary<int, Color32[]> borderColors = new Dictionary<int, Color32[]> ();
 
   private Texture2D screenTexture;
 
@@ -104,8 +104,8 @@ public abstract class Tic80 : MonoBehaviour {
     rawScreenTexture.Apply ();
   }
 
-  protected Color[] getClsColors (int colorIx) {
-    Color[] colors;
+  protected Color32[] getClsColors (int colorIx) {
+    Color32[] colors;
     if (clsColors.TryGetValue (colorIx, out colors)) return colors;
 
     colors = getColors (Tic80Config.WIDTH * Tic80Config.HEIGHT, colorIx);
@@ -114,8 +114,8 @@ public abstract class Tic80 : MonoBehaviour {
     return colors;
   }
 
-  protected Color[] getBorderColors (int colorIx) {
-    Color[] colors;
+  protected Color32[] getBorderColors (int colorIx) {
+    Color32[] colors;
     if (borderColors.TryGetValue (colorIx, out colors)) return colors;
 
     colors = getColors (Tic80Config.BORDER_TEXTURE_WIDTH * Tic80Config.BORDER_TEXTURE_HEIGHT, colorIx);
@@ -124,16 +124,16 @@ public abstract class Tic80 : MonoBehaviour {
     return colors;
   }
 
-  private Color[] getColors (int len, int colorIx) {
+  private Color32[] getColors (int len, int colorIx) {
     var color = GetColor (colorIx);
-    var colors = new Color[len];
+    var colors = new Color32[len];
     for (int i = 0; i < colors.Length; i++) {
       colors[i] = color;
     }
     return colors;
   }
 
-  private Color GetColor (int colorIx) {
+  private Color32 GetColor (int colorIx) {
     return Palettes.GetColor (colorIx, tic80Config.Palette);
   }
 
@@ -500,14 +500,14 @@ public abstract class Tic80 : MonoBehaviour {
    * https://github.com/nesbox/TIC-80/wiki/cls
    */
   public void cls (int colorIx = 0) {
-    screenTexture.SetPixels (0, 0, Tic80Config.WIDTH, Tic80Config.HEIGHT, getClsColors (colorIx));
+    screenTexture.SetPixels32 (0, 0, Tic80Config.WIDTH, Tic80Config.HEIGHT, getClsColors (colorIx));
   }
 
   /**
    * Unofficial
    */
   public void border (int colorIx = 0) {
-    borderTexture.SetPixels (0, 0, Tic80Config.BORDER_TEXTURE_WIDTH, Tic80Config.BORDER_TEXTURE_HEIGHT, getBorderColors (colorIx));
+    borderTexture.SetPixels32 (0, 0, Tic80Config.BORDER_TEXTURE_WIDTH, Tic80Config.BORDER_TEXTURE_HEIGHT, getBorderColors (colorIx));
     borderTexture.Apply ();
   }
 

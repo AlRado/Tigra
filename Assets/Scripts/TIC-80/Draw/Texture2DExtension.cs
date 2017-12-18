@@ -11,11 +11,11 @@ public static class Texture2DExtension {
 
   #region Public
 
-  public static void DrawPixel (this Texture2D texture, float x, float y, Color color) {
+  public static void DrawPixel (this Texture2D texture, float x, float y, Color32 color) {
     pixel (texture, x, y, texture.width, texture.height, color);
   }
 
-  public static Color TakePixel (this Texture2D texture, float x, float y) {
+  public static Color32 TakePixel (this Texture2D texture, float x, float y) {
     int _x = (int) x;
     int _y = (int) y;
     if (_x < 0 || _x >= texture.width || _y < 0 || _y >= texture.height) return Color.clear;
@@ -23,26 +23,26 @@ public static class Texture2DExtension {
     return texture.GetPixel (_x, transformY (_y, texture.height));
   }
 
-  public static void DrawLine (this Texture2D texture, float x0, float y0, float x1, float y1, Color color) {
+  public static void DrawLine (this Texture2D texture, float x0, float y0, float x1, float y1, Color32 color) {
     line (texture, x0, y0, x1, y1, color);
   }
 
-  public static void DrawCircle (this Texture2D texture, float x, float y, float radius, Color color) {
+  public static void DrawCircle (this Texture2D texture, float x, float y, float radius, Color32 color) {
     circle (texture, x, y, radius, color, false);
   }
 
-  public static void DrawFilledCircle (this Texture2D texture, float x, float y, float radius, Color color) {
+  public static void DrawFilledCircle (this Texture2D texture, float x, float y, float radius, Color32 color) {
     circle (texture, x, y, radius, color, true);
   }
 
-  public static void FloodFill (this Texture2D texture, float x, float y, Color color) {
+  public static void FloodFill (this Texture2D texture, float x, float y, Color32 color) {
     int width = texture.width;
     int height = texture.height;
     Point start = new Point ((int) x, transformY ((int) y, texture.height));
-    TwoDimArrColors colorsCopy = new TwoDimArrColors (texture.width, texture.GetPixels ());
-    Color originalColor = texture.GetPixel (start.x, start.y);
+    TwoDimArrColors colorsCopy = new TwoDimArrColors (texture.width, texture.GetPixels32 ());
+    Color32 originalColor = texture.GetPixel (start.x, start.y);
 
-    if (originalColor == color) return;
+    if (System.Object.Equals (originalColor, color)) return;
 
     colorsCopy[start.x, start.y] = color;
 
@@ -62,42 +62,42 @@ public static class Texture2DExtension {
       int _y = current.y;
 
       if (_x > 0) {
-        if (colorsCopy[_x - 1, _y] == originalColor) {
+        if (System.Object.Equals (colorsCopy[_x - 1, _y], originalColor)) {
           colorsCopy[_x - 1, _y] = color;
           nodes.Enqueue (new Point (_x - 1, _y));
         }
       }
       if (_x < width - 1) {
-        if (colorsCopy[_x + 1, _y] == originalColor) {
+        if (System.Object.Equals (colorsCopy[_x + 1, _y], originalColor)) {
           colorsCopy[_x + 1, _y] = color;
           nodes.Enqueue (new Point (_x + 1, _y));
         }
       }
       if (_y > 0) {
-        if (colorsCopy[_x, _y - 1] == originalColor) {
+        if (System.Object.Equals (colorsCopy[_x, _y - 1], originalColor)) {
           colorsCopy[_x, _y - 1] = color;
           nodes.Enqueue (new Point (_x, _y - 1));
         }
       }
       if (_y < height - 1) {
-        if (colorsCopy[_x, _y + 1] == originalColor) {
+        if (System.Object.Equals (colorsCopy[_x, _y + 1], originalColor)) {
           colorsCopy[_x, _y + 1] = color;
           nodes.Enqueue (new Point (_x, _y + 1));
         }
       }
     }
 
-    texture.SetPixels (colorsCopy.data);
+    texture.SetPixels32 (colorsCopy.data);
   }
 
-  public static void DrawRectangle (this Texture2D texture, float x, float y, float width, float height, Color color) {
+  public static void DrawRectangle (this Texture2D texture, float x, float y, float width, float height, Color32 color) {
     texture.DrawLine (x, y, x, y + height, color);
     texture.DrawLine (x, y + height, x + width, y + height, color);
     texture.DrawLine (x + width, y + height, x + width, y, color);
     texture.DrawLine (x + width, y, x, y, color);
   }
 
-  public static void DrawFilledRectangle (this Texture2D texture, float x, float y, float width, float height, Color color) {
+  public static void DrawFilledRectangle (this Texture2D texture, float x, float y, float width, float height, Color32 color) {
     int _width = (int) width;
     int _height = (int) height;
 
@@ -115,21 +115,21 @@ public static class Texture2DExtension {
 
     if (_x + _width < 0 || y + _height < 0) return;
 
-    Color[] colors = new Color[_width * _height];
+    Color32[] colors = new Color32[_width * _height];
     for (int i = 0; i < colors.Length; i++) {
       colors[i] = color;
     }
 
-    texture.SetPixels (_x, _y, _width, _height, colors);
+    texture.SetPixels32 (_x, _y, _width, _height, colors);
   }
 
-  public static void DrawTriangle (this Texture2D texture, float x1, float y1, float x2, float y2, float x3, float y3, Color color) {
+  public static void DrawTriangle (this Texture2D texture, float x1, float y1, float x2, float y2, float x3, float y3, Color32 color) {
     texture.DrawLine (x1, y1, x2, y2, color);
     texture.DrawLine (x2, y2, x3, y3, color);
     texture.DrawLine (x3, y3, x1, y1, color);
   }
 
-  public static void DrawFilledTriangle (this Texture2D texture, float x1, float y1, float x2, float y2, float x3, float y3, Color color) {
+  public static void DrawFilledTriangle (this Texture2D texture, float x1, float y1, float x2, float y2, float x3, float y3, Color32 color) {
     Point vt1 = new Point ((int) x1, (int) y1);
     Point vt2 = new Point ((int) x2, (int) y2);
     Point vt3 = new Point ((int) x3, (int) y3);
@@ -154,7 +154,7 @@ public static class Texture2DExtension {
 
   #region Private
 
-  private static void pixel (Texture2D texture, float x, float y, float width, float height, Color color) {
+  private static void pixel (Texture2D texture, float x, float y, float width, float height, Color32 color) {
     int _x = (int) x;
     int _y = (int) y;
     int _width = (int) width;
@@ -165,7 +165,7 @@ public static class Texture2DExtension {
     texture.SetPixel (_x, transformY (_y, _height), color);
   }
 
-  private static void circle (Texture2D texture, float x, float y, float radius, Color color, bool filled = false) {
+  private static void circle (Texture2D texture, float x, float y, float radius, Color32 color, bool filled = false) {
     int cx = (int) radius;
     int cy = 0;
     int radiusError = 1 - cx;
@@ -200,14 +200,14 @@ public static class Texture2DExtension {
 
   private class TwoDimArrColors {
     private int width;
-    public Color[] data;
+    public Color32[] data;
 
-    public TwoDimArrColors (int width, Color[] data) {
+    public TwoDimArrColors (int width, Color32[] data) {
       this.width = width;
       this.data = data;
     }
 
-    public Color this [int x, int y] {
+    public Color32 this [int x, int y] {
       get {
         return data[x + y * width];
       }
@@ -217,7 +217,7 @@ public static class Texture2DExtension {
     }
   }
 
-  private static void line (Texture2D texture, float x0, float y0, float x1, float y1, Color color) {
+  private static void line (Texture2D texture, float x0, float y0, float x1, float y1, Color32 color) {
     int width = texture.width;
     int height = texture.height;
     int _x0 = (int) x0;
@@ -256,7 +256,7 @@ public static class Texture2DExtension {
     }
   }
 
-  private static void fillFlatSideTriangle (Texture2D texture, Point v1, Point v2, Point v3, Color color) {
+  private static void fillFlatSideTriangle (Texture2D texture, Point v1, Point v2, Point v3, Color32 color) {
     Point vTmp1 = new Point (v1.x, v1.y);
     Point vTmp2 = new Point (v1.x, v1.y);
 
