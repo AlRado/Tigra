@@ -32,6 +32,9 @@ public abstract class Tic80 : MonoBehaviour {
   private int[] mouseStates = new int[3];
   private int btnpStartTic;
   private int btnpDuration = 1;
+
+  // elapsed time in seconds
+  protected float t;
   
   public void OnEnable () {
     if (this.enabled) {
@@ -60,6 +63,7 @@ public abstract class Tic80 : MonoBehaviour {
 #endif
 
     init ();
+    Invoke("init", 0f);
     border ();
 
     isInited = true;
@@ -90,7 +94,9 @@ public abstract class Tic80 : MonoBehaviour {
       print ("");
     }
 
+    t=Time.time;
     TIC ();
+    Invoke("TIC", 0f);
     screenTexture.Apply ();
     ticCounter++;
 
@@ -141,6 +147,13 @@ public abstract class Tic80 : MonoBehaviour {
     return x < 0 || x >= Tic80Config.WIDTH || y < 0 || y >= Tic80Config.HEIGHT;
   }
 
+  #region API Delegates
+
+  // circ & circb delegate
+  public delegate void CD (float x, float y, float radius, int colorIx);
+
+  #endregion
+
   #region API
 
   // Специальные функции
@@ -154,7 +167,7 @@ public abstract class Tic80 : MonoBehaviour {
    * TIC is the main function. It's call at 60 fps (60 times every second).
    * https://github.com/nesbox/TIC-80/wiki/tic
    */
-  public abstract void TIC ();
+  public virtual void TIC (){}
 
   /**
    * scanline это callback функция, как и главная функция TIC, но вызывается системой после рендера каждой СТРОКИ.
@@ -180,7 +193,7 @@ public abstract class Tic80 : MonoBehaviour {
    * Anyway many user would like to have a init function, called only one time at the beginning of the code execution. 
    * https://github.com/nesbox/TIC-80/wiki/init
    */
-  public abstract void init ();
+  public virtual void init (){}
 
   // Опрос ввода/вывода
   /**
