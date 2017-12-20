@@ -149,8 +149,22 @@ public abstract class Tic80 : MonoBehaviour {
 
   #region API Delegates
 
-  // circ & circb delegate
+  /**
+   * circ & circb delegate
+   */
   public delegate void CD (float x, float y, float radius, int colorIx);
+
+  /**
+   * rect & rectb delegate
+   */
+  public delegate void RD (float x, float y, float w, float h, int colorIx);
+
+  /**
+   * tri & trib delegate
+   */
+  public delegate void TD (float x1, float y1, float x2, float y2, float x3, float y3, int colorIx);
+
+
 
   #endregion
 
