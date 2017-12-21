@@ -264,6 +264,7 @@ MonoBehaviour:
   DebugEnabled: 0
   _palette: 0
   _font: 0
+  _viewScale: 2
 --- !u!114 &1504793380
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,18 +12,23 @@ using V3 = UnityEngine.Vector3;
 using F = System.Single;
 using I = System.Int32;
 using S = System.String;
+using B = System.Boolean;
 #endregion
 
   /**
-  * Tigra shortcuts:
+  * Tweet cart is the whole script, fit in one tweet, i.e. code length must be <= 280 characters
+  *
+  * Tigra tweet cart shortcuts:
   *
   * Functions:
   * TIC() is called 60 times per second.
   *
   * Variables:
-  * t:  elapsed time in seconds.
+  * t:  elapsed time in seconds
+  * f:  frame counter
   *
   * Aliases:
+  * B:  bool
   * F:  float
   * I:  int
   * M:  UnityEngine.Mathf

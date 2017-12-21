@@ -35,7 +35,10 @@ public abstract class Tic80 : MonoBehaviour {
 
   // elapsed time in seconds
   protected float t;
-  
+
+  // frame counter
+  protected int f;
+
   public void OnEnable () {
     if (this.enabled) {
       var scripts = GetComponents<Tic80> ();
@@ -95,6 +98,7 @@ public abstract class Tic80 : MonoBehaviour {
     }
 
     t=Time.time;
+    f++;
     TIC ();
     Invoke("TIC", 0f);
     screenTexture.Apply ();

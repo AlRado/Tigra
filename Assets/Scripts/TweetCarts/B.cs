@@ -1,4 +1,4 @@
-﻿#region
+#region
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,5 +46,6 @@ using B = System.Boolean;
   * Beautify/minify C# online tool:
   * https://codebeautify.org/csharpviewer
   */
-class #SCRIPTNAME#:Z{void TIC(){#NOTRIM#}}
+
+class B:Z{I W=240,H=136;void init(){cls();}void TIC(){if(f%120==0)border((I)t%16);Func<I,I,I>rr=R.Range;tri(rr(0,W),rr(0,H),rr(0,W),rr(0,H),rr(0,W),rr(0,H),rr(0,16));}}
 

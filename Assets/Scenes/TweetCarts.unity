@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 1298327234}
   - component: {fileID: 1298327233}
   - component: {fileID: 1298327232}
+  - component: {fileID: 1298327235}
   m_Layer: 0
   m_Name: TweetCarts
   m_TagString: Untagged
@@ -168,3 +169,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1298327235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1298327231}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8505f111ec03f45b4314cef0e6221b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
