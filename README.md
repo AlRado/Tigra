@@ -41,7 +41,7 @@ Further, in the Project tab, select the folder where we want to place the script
 3. Fill our script with game logic and launch the game!
 
 ## Placing and editing template scripts.
-To create scripts according to the template you want, copy the file `99-Tic80 Script-NewTic80Script.cs` from the folder `Assets/Scripts/Editor` to the script templates folder.
+To create scripts according to the template you want, copy the file `99-Tic80 Script-NewTic80Script.cs` from the folder `Assets/Scripts/Editor/ScriptTemplates` to the script templates folder.
 To display the source folder and target folder, you can use the command from the context menu `Show in explorer Tic80 Script Templates` or selecting it from the `Assets > Show in explorer Tic80 Script Templates`.
 ### The path to the script templates folder : ### 
 * **Windows** `C:\Program Files\Unity\Editor\Data\Resources\ScriptTemplates`
@@ -135,7 +135,7 @@ I want to thank for the contribution and for the motivation:
 3. Наполняем "логикой" наш скрипт и запускаем игру, готово!
 
 ## Размещение и правка шаблона скриптов.
-Для того чтобы создавать скрипты по шаблону, нужно скопировать файл `99-Tic80 Script-NewTic80Script.cs` из папки `Assets/Scripts/Editor` в папку шаблонов скриптов.  
+Для того чтобы создавать скрипты по шаблону, нужно скопировать файл `99-Tic80 Script-NewTic80Script.cs` из папки `Assets/Scripts/Editor/ScriptTemplates` в папку шаблонов скриптов.  
 Чтобы отобразить папку-источник и целевую папку, можно воспользоваться командой из контекстного меню `Show in explorer Tic80 Script Templates` либо выбрав её из `Assets > Show in explorer Tic80 Script Templates`.
 ### Стандартный путь к папке шаблонов скриптов: ### 
 * **Windows** `C:\Program Files\Unity\Editor\Data\Resources\ScriptTemplates`
