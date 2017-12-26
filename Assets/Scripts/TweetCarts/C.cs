@@ -1,4 +1,4 @@
-#region
+﻿#region
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,6 +46,9 @@ using B = System.Boolean;
   * Beautify/minify C# online tool:
   * https://codebeautify.org/csharpviewer
   */
+class C:Z{void TIC(){cls(2);var m=mouse();var x=m[0];var y=m[1];var p=m[2];circ(60,50,40,15);circ(180,50,40,15);circ(M.Min(80,M.Max(40,x)),M.Min(70,M.Max(30,y)),15,0);circ(M.Min(200,M.Max(160,x)),M.Min(70,M.Max(30,y)),15,0);}}
+//original demo by lb_ii
 
-class B:Z{I W=240,H=136;void init(){cls();}void TIC(){if(f%120==0)border((I)t%16);Func<I,I,I>rr=R.Range;tri(rr(0,W),rr(0,H),rr(0,W),rr(0,H),rr(0,W),rr(0,H),rr(0,16));}}
-//original demo by nitrofurano
+
+
+

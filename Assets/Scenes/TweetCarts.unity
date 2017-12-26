@@ -88,6 +88,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -123,6 +124,8 @@ GameObject:
   - component: {fileID: 1298327233}
   - component: {fileID: 1298327232}
   - component: {fileID: 1298327235}
+  - component: {fileID: 1298327236}
+  - component: {fileID: 1298327237}
   m_Layer: 0
   m_Name: TweetCarts
   m_TagString: Untagged
@@ -178,5 +181,27 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b8505f111ec03f45b4314cef0e6221b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1298327236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1298327231}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffcddd56920705544b20bf97a7e14594, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1298327237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1298327231}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afe4761f02d476a489c79ac15fb7f3d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
