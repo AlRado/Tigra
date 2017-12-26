@@ -55,6 +55,18 @@ In order to use autocompletion of code (snippets) of TIC-80 API functions do the
 1. Open the file csharp.json with the desired language. The following languages are available: EN, RU, FR. They are here: `Assets/Plugins/VSCodeSnippets`.
 2. Open in Visual Studio Code: File->Preferences->User Snippets, locate the C# language, copy and paste the contents of the corresponding json.
 
+## Tweetcarts and abbreviations in code
+What are a tweetcarts and tweetjams?
+Tweetcart is a post in Tweeter, which contains self-sufficient
+ script, which usually draws funny graphics on the screen.
+The script size is limited to the number of characters in a single tweet, i.e. 280 characters.
+A tweetjam is a competition or contest for the most interesting tweetcarts devoted to any topic.
+In order to use the power of C# language and Unity libraries and to fit in such a small code size - we've added an abbreviations in code.
+You can easily create a blank billet of tweetcart or create a tweetcarts with auto-substitution code from another tweetcart.
+ The context menu command: Create > Tic80 New TweetCart and Create > Tic80 Paste TweetCart.
+
+ ![](/Gifs/tigra_paste_tweet_cart.gif)
+
 ## Changelog Tigra v.0.1.0
 The following graphical TIC-80 API functions are implemented:
 * pix
