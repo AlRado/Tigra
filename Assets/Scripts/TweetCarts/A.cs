@@ -48,4 +48,4 @@ using B = System.Boolean;
   */
 
 class A:Z{F a,b;I[]d={2,3,4,4};V2[]c=new V2[4];void TIC(){if(a==0)c[3]=new V2(96,24);if(a++%10==0){cls();b+=R.Range(-1,1)*M.PI/4;int i;for(i=0;i<3;i++)c[i]=c[i+1];c[3].x+=M.Sin(b)*4;c[3].y+=M.Cos(b)*4;CD f=circb;for(i=0;i<4;i++){if(i==3)f=circ;f(c[i].x,c[i].y,d[i],6);}}}}
-//original demo by DarkHole
+// original demo by DarkHole

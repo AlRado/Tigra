@@ -47,4 +47,4 @@ using B = System.Boolean;
   * https://codebeautify.org/csharpviewer
   */
 class D:Z{F PI2=(F)2.0*M.PI;I dx=32,dy=32,ts=0;void TIC(){cls();if(dy<0)dy=0;if(dx<0)dx=0;for(F x=-dx;x<220+2*dx;x+=dx){for(F y=-dy;y<136+2*dy;y+=dy){for(F a=0;a<PI2;a+=PI2/8){circ(x+35*M.Sin(a+t),y+35*M.Cos(a+t),5,15);}}}}}
-//original demo by HomineLudens
+// original demo by HomineLudens
