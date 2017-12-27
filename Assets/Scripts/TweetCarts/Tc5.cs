@@ -46,5 +46,5 @@ using B = System.Boolean;
  * Beautify/minify C# online tool:
  * https://codebeautify.org/csharpviewer
  */
-class E:Z{F x=96,y=24,d=.01f;void TIC(){cls(16);if(btn(0))y-=d;if(btn(1))y+=d;if(btn(2))x-=d;if(btn(3))x+=d;for(I e=0;e<136;e+=2){for(I b=0;b<240;b+=50){rect(b,e,M.Sin((y*(e*b)/x)+(F)f/200)*50,1,R.Range(6,10));}}}}
+class Tc5:Z{F x=96,y=24,d=.01f;void TIC(){cls(16);if(btn(0))y-=d;if(btn(1))y+=d;if(btn(2))x-=d;if(btn(3))x+=d;for(I e=0;e<136;e+=2){for(I b=0;b<240;b+=50){rect(b,e,M.Sin((y*(e*b)/x)+(F)f/200)*50,1,R.Range(6,10));}}}}
 // original demo by catpants

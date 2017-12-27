@@ -47,5 +47,5 @@ using B = System.Boolean;
   * https://codebeautify.org/csharpviewer
   */
 
-class B:Z{I W=240,H=136;void init(){cls();}void TIC(){if(f%120==0)border((I)t%16);Func<I,I,I>rr=R.Range;tri(rr(0,W),rr(0,H),rr(0,W),rr(0,H),rr(0,W),rr(0,H),rr(0,16));}}
+class Tc2:Z{I W=240,H=136;void init(){cls();}void TIC(){if(f%120==0)border((I)t%16);Func<I,I,I>rr=R.Range;tri(rr(0,W),rr(0,H),rr(0,W),rr(0,H),rr(0,W),rr(0,H),rr(0,16));}}
 // original demo by nitrofurano
