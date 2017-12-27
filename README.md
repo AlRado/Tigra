@@ -67,6 +67,13 @@ You can easily create a blank billet of tweetcart or create a tweetcarts with au
 
  ![](/Gifs/tigra_paste_tweet_cart.gif)
 
+## Changelog Tigra-128 v.0.2.0
+* the Tigra project is now named Tigra-128
+* added abbreviations for tweetcarts
+* added templates for creating tweetcarts
+* added 6 demonstration tweetcarts
+* performance improvement: SetPixels replaced with SetPixels32
+
 ## Changelog Tigra v.0.1.0
 The following graphical TIC-80 API functions are implemented:
 * pix
@@ -171,6 +178,13 @@ I want to thank for the contribution and for the motivation:
 Команды из контекстного меню: `Create > Tic80 New TweetCart` и `Create > Tic80 Paste TweetCart`.
 
 ![](/Gifs/tigra_paste_tweet_cart.gif)
+
+## Список изменений Tigra-128 v.0.2.0
+* проект Tigra теперь носит имя Tigra-128
+* добавлены сокращения для твит-картов
+* добавлены шаблоны создания твит-картов
+* добавлены 6 демонстрационных твит-картов 
+* увеличение производительности: замена SetPixels на SetPixels32
 
 ## Список изменений Tigra v.0.1.0
 Реализованы следующие графические функции API TIC-80:
