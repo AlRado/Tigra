@@ -32,7 +32,13 @@ public abstract class Tic80 : MonoBehaviour {
   private int[] mouseStates = new int[3];
   private int btnpStartTic;
   private int btnpDuration = 1;
-  
+
+  // elapsed time in seconds
+  protected float t;
+
+  // frame counter
+  protected int f;
+
   public void OnEnable () {
     if (this.enabled) {
       var scripts = GetComponents<Tic80> ();
@@ -60,6 +66,7 @@ public abstract class Tic80 : MonoBehaviour {
 #endif
 
     init ();
+    Invoke("init", 0f);
     border ();
 
     isInited = true;
@@ -90,7 +97,10 @@ public abstract class Tic80 : MonoBehaviour {
       print ("");
     }
 
+    t=Time.time;
+    f++;
     TIC ();
+    Invoke("TIC", 0f);
     screenTexture.Apply ();
     ticCounter++;
 
@@ -141,6 +151,27 @@ public abstract class Tic80 : MonoBehaviour {
     return x < 0 || x >= Tic80Config.WIDTH || y < 0 || y >= Tic80Config.HEIGHT;
   }
 
+  #region API Delegates
+
+  /**
+   * circ & circb delegate
+   */
+  public delegate void CD (float x, float y, float radius, int colorIx);
+
+  /**
+   * rect & rectb delegate
+   */
+  public delegate void RD (float x, float y, float w, float h, int colorIx);
+
+  /**
+   * tri & trib delegate
+   */
+  public delegate void TD (float x1, float y1, float x2, float y2, float x3, float y3, int colorIx);
+
+
+
+  #endregion
+
   #region API
 
   // Специальные функции
@@ -154,7 +185,7 @@ public abstract class Tic80 : MonoBehaviour {
    * TIC is the main function. It's call at 60 fps (60 times every second).
    * https://github.com/nesbox/TIC-80/wiki/tic
    */
-  public abstract void TIC ();
+  public virtual void TIC (){}
 
   /**
    * scanline это callback функция, как и главная функция TIC, но вызывается системой после рендера каждой СТРОКИ.
@@ -180,7 +211,7 @@ public abstract class Tic80 : MonoBehaviour {
    * Anyway many user would like to have a init function, called only one time at the beginning of the code execution. 
    * https://github.com/nesbox/TIC-80/wiki/init
    */
-  public abstract void init ();
+  public virtual void init (){}
 
   // Опрос ввода/вывода
   /**
@@ -253,9 +284,10 @@ public abstract class Tic80 : MonoBehaviour {
    * This will simply print text to the screen using the font defined in config.
    * https://github.com/nesbox/TIC-80/wiki/print
    */
-  public int print (string text, float x = 0, float y = 0, int colorIx = 15, bool @fixed = false, int scale = 1) {
+  public int print (object msg, float x = 0, float y = 0, int colorIx = 15, bool @fixed = false, int scale = 1) {
     // в данной реализации работает только с фиксированным размером fixed=true
     // пока можно использовать print только один раз :( 
+    var text = msg.ToString();
     textField.text = text;
     textField.color = GetColor (colorIx);
     if (!cachedTextRectTransform) cachedTextRectTransform = textField.gameObject.GetComponent<RectTransform> ();

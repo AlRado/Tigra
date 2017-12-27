@@ -41,7 +41,7 @@ Further, in the Project tab, select the folder where we want to place the script
 3. Fill our script with game logic and launch the game!
 
 ## Placing and editing template scripts.
-To create scripts according to the template you want, copy the file `99-Tic80 Script-NewTic80Script.cs` from the folder `Assets/Scripts/Editor` to the script templates folder.
+To create scripts according to the template you want, copy the file `99-Tic80 Script-NewTic80Script.cs` from the folder `Assets/Scripts/Editor/ScriptTemplates` to the script templates folder.
 To display the source folder and target folder, you can use the command from the context menu `Show in explorer Tic80 Script Templates` or selecting it from the `Assets > Show in explorer Tic80 Script Templates`.
 ### The path to the script templates folder : ### 
 * **Windows** `C:\Program Files\Unity\Editor\Data\Resources\ScriptTemplates`
@@ -54,6 +54,25 @@ To display the source folder and target folder, you can use the command from the
 In order to use autocompletion of code (snippets) of TIC-80 API functions do the following:
 1. Open the file csharp.json with the desired language. The following languages are available: EN, RU, FR. They are here: `Assets/Plugins/VSCodeSnippets`.
 2. Open in Visual Studio Code: File->Preferences->User Snippets, locate the C# language, copy and paste the contents of the corresponding json.
+
+## Tweetcarts and abbreviations in code
+What are a tweetcarts and tweetjams?
+Tweetcart is a post in Tweeter, which contains self-sufficient
+ script, which usually draws funny graphics on the screen.
+The script size is limited to the number of characters in a single tweet, i.e. 280 characters.
+A tweetjam is a competition or contest for the most interesting tweetcarts devoted to any topic.
+In order to use the power of C# language and Unity libraries and to fit in such a small code size - we've added an abbreviations in code.
+You can easily create a blank billet of tweetcart or create a tweetcarts with auto-substitution code from another tweetcart.
+ The context menu command: Create > Tic80 New TweetCart and Create > Tic80 Paste TweetCart.
+
+ ![](/Gifs/tigra_paste_tweet_cart.gif)
+
+## Changelog Tigra-128 v.0.2.0
+* the Tigra project is now named Tigra-128
+* added abbreviations for tweetcarts
+* added templates for creating tweetcarts
+* added 6 demonstration tweetcarts
+* performance improvement: SetPixels replaced with SetPixels32
 
 ## Changelog Tigra v.0.1.0
 The following graphical TIC-80 API functions are implemented:
@@ -135,7 +154,7 @@ I want to thank for the contribution and for the motivation:
 3. Наполняем "логикой" наш скрипт и запускаем игру, готово!
 
 ## Размещение и правка шаблона скриптов.
-Для того чтобы создавать скрипты по шаблону, нужно скопировать файл `99-Tic80 Script-NewTic80Script.cs` из папки `Assets/Scripts/Editor` в папку шаблонов скриптов.  
+Для того чтобы создавать скрипты по шаблону, нужно скопировать файл `99-Tic80 Script-NewTic80Script.cs` из папки `Assets/Scripts/Editor/ScriptTemplates` в папку шаблонов скриптов.  
 Чтобы отобразить папку-источник и целевую папку, можно воспользоваться командой из контекстного меню `Show in explorer Tic80 Script Templates` либо выбрав её из `Assets > Show in explorer Tic80 Script Templates`.
 ### Стандартный путь к папке шаблонов скриптов: ### 
 * **Windows** `C:\Program Files\Unity\Editor\Data\Resources\ScriptTemplates`
@@ -148,6 +167,24 @@ I want to thank for the contribution and for the motivation:
 Для того чтобы использовать автодополнение кода(сниппеты) функций API TIC-80 проделайте следующее:
 1. Откройте файл csharp.json с нужным языком локализации, доступны EN, RU, FR. Они находятся здесь: `Assets/Plugins/VSCodeSnippets`.
 2. В Visual Studio Code откройте: File->Preferences->User Snippets, найдите язык C#, скопируйте и вставьте содержимое соответствующего json-а.
+
+## Твит-карты и сокращения
+Что такое твит-карты и твит-джемы?
+Твит-картом называют пост в tweeter, который содержит сомодостаточный скрипт, который как правило рисует забавную графику на экране.
+Размер скрипта ограничен количеством символов в одном твите, т.е. 280 символов.
+Твит-джем - это некое соревнование или конкурс, на самый интересный твит-карт посвященный какой либо теме.
+Для того, чтобы задействовать мощь языка C#, а также библиотек Unity и уместиться в такой маленький размер кода - мы добавили сокращения.
+Можно легко создавать пустую заготовку твит-карта или создать твит-карт с авто-подстановкой кода из твит-карта.
+Команды из контекстного меню: `Create > Tic80 New TweetCart` и `Create > Tic80 Paste TweetCart`.
+
+![](/Gifs/tigra_paste_tweet_cart.gif)
+
+## Список изменений Tigra-128 v.0.2.0
+* проект Tigra теперь носит имя Tigra-128
+* добавлены сокращения для твит-картов
+* добавлены шаблоны создания твит-картов
+* добавлены 6 демонстрационных твит-картов 
+* увеличение производительности: замена SetPixels на SetPixels32
 
 ## Список изменений Tigra v.0.1.0
 Реализованы следующие графические функции API TIC-80:
