@@ -89,7 +89,7 @@ The following graphical TIC-80 API functions are implemented:
 
 Other implemented API functions:
 * TIC
-* init [mandatory]
+* init
 * btn
 * btnp
 * mouse
@@ -201,7 +201,7 @@ I want to thank for the contribution and for the motivation:
 
 Реализованы прочие функции API:
 * TIC
-* init [обязательная функция]
+* init
 * btn
 * btnp
 * mouse
