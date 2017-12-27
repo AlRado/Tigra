@@ -284,9 +284,10 @@ public abstract class Tic80 : MonoBehaviour {
    * This will simply print text to the screen using the font defined in config.
    * https://github.com/nesbox/TIC-80/wiki/print
    */
-  public int print (string text, float x = 0, float y = 0, int colorIx = 15, bool @fixed = false, int scale = 1) {
+  public int print (object msg, float x = 0, float y = 0, int colorIx = 15, bool @fixed = false, int scale = 1) {
     // в данной реализации работает только с фиксированным размером fixed=true
     // пока можно использовать print только один раз :( 
+    var text = msg.ToString();
     textField.text = text;
     textField.color = GetColor (colorIx);
     if (!cachedTextRectTransform) cachedTextRectTransform = textField.gameObject.GetComponent<RectTransform> ();
