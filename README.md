@@ -1,12 +1,12 @@
 # README #
 
-# Tigra 
+# Tigra-128 
 ## Unity TIC-80 graphical API experiment
 
-The Tigra project is an implementation of the graphics API functions of TIC-80 fantasy console.
+The Tigra-128 project is an implementation of the graphics API functions of TIC-80 fantasy console.
 The project is a plugin for Unity that allows you to experiment with TIC-80 graphics using the full power of C# and Unity!
 
-Tigra will allow you to plunge into the atmosphere of minimalism of fantasy consoles.
+Tigra-128 will allow you to plunge into the atmosphere of minimalism of fantasy consoles.
 Small screen resolution, border, a palette of 16 colors, all code in a single file and a simple TIC-80 API functions is what creates limitations and emphasizes the spirit of retro-gaming consoles. A professional development environment Unity and powerful object-oriented language C# is the tools for easy and rapid creating, debugging, and publishing your creative ideas under a variety of execution platforms. The project also includes some scripts for integrating free and open source code editor Microsoft Visual Code: snippets for autocompletion TIC-80 API functions, Unity integration script, settings of ignored resources files.
 
 It is enough to have one GameObject with a custom script inherited from `Tic80` class in scene in order to work. `Tic80Config` script and graphical representation will be added automatically.
@@ -113,13 +113,13 @@ I want to thank for the contribution and for the motivation:
 
 ---
 
-# Tigra 
+# Tigra-128 
 ## Unity TIC-80 graphical API experiment
 
-Проект "Tigra" - это реализация графических функций API виртуальной игровой консоли TIC-80.
+Проект "Tigra-128" - это реализация графических функций API виртуальной игровой консоли TIC-80.
 Проект представляет из себя плагин для Unity, позволяющий экспериментировать с графикой TIC-80 используя всю мощь C# и среды Unity!
 
-"Tigra" позволит вам окунуться в атмосферу минималистичности фантазийных консолей.
+"Tigra-128" позволит вам окунуться в атмосферу минималистичности фантазийных консолей.
 Малое разрешение экрана, бордюр, палитра из 16 цветов, весь код в единственном файле и простые функции API TIC-80 - это то, что создаёт ограничения и подчеркивает дух игровых ретро-консолей. Профессиональная среда разработки игр Unity и мощный ООП язык C# - это инструменты для удобного и быстрого создания, отладки и публикации ваших креативных идей под множество платформ исполнения. В проект также влючены скрипты для интеграции бесплатного и открытого редактора кода Microsoft Visual Code: сниппеты для автодополнения функций API TIC-80, скрипт интеграции в Unity, настройки игнорируемых файлов ресурсов.
 
 Для того чтобы всё заработало достаточно иметь на сцене один GameObject с пользовательским скриптом, унаследованным от класса `Tic80`. Скрипт `Tic80Config` и отображение будут добавлены автоматически.
