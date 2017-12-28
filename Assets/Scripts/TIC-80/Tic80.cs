@@ -39,6 +39,8 @@ public abstract class Tic80 : MonoBehaviour {
   // frame counter
   protected int f;
 
+  protected Palettes.Palette oldPalette;
+
   public void OnEnable () {
     if (this.enabled) {
       var scripts = GetComponents<Tic80> ();
@@ -71,7 +73,7 @@ public abstract class Tic80 : MonoBehaviour {
     isInited = true;
   }
 
-  private void OnDestroy () {
+  private void OnDisable () {
     if (tic80Config != null) tic80Config.OnFontChange -= OnFontChange;
     if (tic80Config != null) tic80Config.OnPaletteChange -= OnPaletteChange;
   }
@@ -84,7 +86,13 @@ public abstract class Tic80 : MonoBehaviour {
     clsColors.Clear ();
     borderColors.Clear ();
     border ();
-    cls ();
+    updateScreenByPalette(oldPalette, tic80Config.Palette);
+  }
+
+  private void updateScreenByPalette(Palettes.Palette oldPal, Palettes.Palette pal){
+    var indexes = screenTexture.GetPixels32().Select(c => Palettes.GetColorIx(c, oldPal));
+    var newColors =indexes.ToList().Select(ix => Palettes.GetColor(ix, pal)).ToArray();
+    screenTexture.SetPixels32(newColors);
   }
 
   private void FixedUpdate () {
@@ -101,6 +109,8 @@ public abstract class Tic80 : MonoBehaviour {
     Invoke("TIC", 0f);
     screenTexture.Apply ();
     ticCounter++;
+
+    oldPalette=tic80Config.Palette;
 
     StartCoroutine (CopyToRawScreenCoroutine ());
   }
