@@ -65,7 +65,6 @@ public abstract class Tic80 : MonoBehaviour {
       GameViewUtils.InitTIC80Size ((int) tic80Config.ViewScale);
 #endif
 
-    init ();
     Invoke("init", 0f);
     border ();
 
@@ -99,7 +98,6 @@ public abstract class Tic80 : MonoBehaviour {
 
     t=Time.time;
     f++;
-    TIC ();
     Invoke("TIC", 0f);
     screenTexture.Apply ();
     ticCounter++;
