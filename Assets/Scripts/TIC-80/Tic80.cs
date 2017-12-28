@@ -8,6 +8,11 @@ using UnityEngine;
 using UnityEngine.Profiling;
 using UnityEngine.UI;
 
+#if UNITY_EDITOR
+using System.Reflection;
+using UnityEditor;
+#endif
+
 #endregion
 
 [RequireComponent (typeof (Tic80Config))]
@@ -157,6 +162,28 @@ public abstract class Tic80 : MonoBehaviour {
 
   private bool IsOffScreen (float x, float y) {
     return x < 0 || x >= Tic80Config.WIDTH || y < 0 || y >= Tic80Config.HEIGHT;
+  }
+
+  public void SaveScreenshot () {
+#if UNITY_EDITOR
+    var path = Tic80Config.COVER_PATH + this.GetType () + ".png";
+    ScreenCapture.CaptureScreenshot(path);
+    EditorUtility.RevealInFinder(path);
+    Debug.Log ("The cover was saved into: " + path);
+    Invoke("SetCover", 1f);
+#endif
+  }
+
+  private void SetCover () {
+#if UNITY_EDITOR
+    var path = Tic80Config.COVER_PATH + this.GetType () + ".png";
+    var icon = AssetDatabase.LoadAssetAtPath(path, typeof(Texture2D)) as Texture2D;
+    var egu = typeof (UnityEditor.EditorGUIUtility);
+    var flags = BindingFlags.InvokeMethod | BindingFlags.Static | BindingFlags.NonPublic;
+    var args = new object[] { this, icon };
+    var setIcon = egu.GetMethod ("SetIconForObject", flags, null, new Type[] { typeof (UnityEngine.Object), typeof (Texture2D) }, null);
+    setIcon.Invoke (null, args);
+#endif
   }
 
   #region API Delegates

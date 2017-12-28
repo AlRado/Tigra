@@ -26,6 +26,8 @@ public class Tic80Config : MonoBehaviour {
 
   public const int FONT_WIDTH = 6;
 
+  public const string COVER_PATH = "Assets/Resources/Covers/";
+
   public bool DebugEnabled;
 
   public Action OnPaletteChange;
