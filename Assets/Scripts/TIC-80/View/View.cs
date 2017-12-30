@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Moments;
 
 #endregion
 
@@ -19,6 +20,9 @@ public class View : SingletonPrefab<View> {
 
   [SerializeField]
   private Text Text;
+
+  [SerializeField]
+  private Recorder GifRecorder;
 
   public Stats Stats {get; private set;}
 
@@ -53,6 +57,10 @@ public class View : SingletonPrefab<View> {
 
   public Text GetTextField () {
     return Text;
+  }
+
+  public Recorder GetGifRecorder () {
+    return GifRecorder;
   }
 
 }

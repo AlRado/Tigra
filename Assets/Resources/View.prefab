@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 20554210501403924}
   - component: {fileID: 124200866634937702}
   - component: {fileID: 81499881384073460}
+  - component: {fileID: 114663876315823960}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -206,6 +207,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 0
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
@@ -255,6 +257,25 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &114663876315823960
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1088413689931202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd5378998db5ba9488d08a4e3b80821a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Width: 256
+  m_Height: 144
+  m_AutoAspect: 0
+  m_FramePerSecond: 15
+  m_Repeat: 0
+  m_Quality: 100
+  m_BufferSize: 3
+  WorkerPriority: 2
 --- !u!114 &114710818080483060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -357,6 +378,7 @@ MonoBehaviour:
   Screen: {fileID: 114710818080483060}
   RawScreen: {fileID: 114820494514527994}
   Text: {fileID: 114787671403566996}
+  GifRecorder: {fileID: 114663876315823960}
 --- !u!114 &114898944575403060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -483,9 +505,9 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1108162471024794}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 100}
-  m_LocalScale: {x: 0.083333336, y: 0.083333336, z: 0.083333336}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 224692409782986096}
   - {fileID: 224087498201091666}
@@ -506,7 +528,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1096142867148898}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 120, y: 68, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224335766802065964}
