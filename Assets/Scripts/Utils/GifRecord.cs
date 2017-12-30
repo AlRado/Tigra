@@ -41,7 +41,7 @@ public class GifRecord : MonoBehaviour {
 
   void OnFileSaveProgress (int id, float percent) {
     m_Progress = percent * 100f;
-    Debug.Log ("Gif progress: " + (int) m_Progress);
+    Debug.Log ("Gif save progress: " + (int) m_Progress);
   }
 
   void OnFileSaved (int id, string filepath) {
@@ -61,6 +61,7 @@ public class GifRecord : MonoBehaviour {
   public void SaveGif () {
     m_Recorder.Save ();
     m_Progress = 0f;
+    Debug.Log ("Gif save started");
   }
 #endif
 }
