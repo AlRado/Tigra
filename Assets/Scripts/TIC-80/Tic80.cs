@@ -186,6 +186,21 @@ public abstract class Tic80 : MonoBehaviour {
 #endif
   }
 
+  public void DrawPixels(float x, float y, int [] colorsIx, float width, int alphaColorIx, int colorIx = -1) {
+    int _y = screenTexture.TransformY(y);
+    for (int i = 0; i < colorsIx.Length; i++) {
+      var posX = x + i % width;
+      var posY = _y + i / width;
+      if (posX < 0 || posX >= screenTexture.width || posY < 0 || posY >= screenTexture.height) continue;
+
+      var pal = Tic80Config.Instance.Palette;
+      var color = Palettes.GetColor(colorsIx[i], pal);
+      var alphaColor = Palettes.GetColor(alphaColorIx, pal);
+
+      if (!System.Object.Equals (color, alphaColor)) screenTexture.SetPixel ((int)posX, (int)posY, colorIx < 0 ? color: Palettes.GetColor(colorIx, pal));
+    }
+  }
+
   #region API Delegates
 
   /**
@@ -320,19 +335,20 @@ public abstract class Tic80 : MonoBehaviour {
    * https://github.com/nesbox/TIC-80/wiki/print
    */
   public int print (object msg, float x = 0, float y = 0, int colorIx = 15, bool @fixed = false, int scale = 1) {
-    // в данной реализации работает только с фиксированным размером fixed=true
-    // пока можно использовать print только один раз :( 
-    var text = msg.ToString();
-    textField.text = text;
-    textField.color = GetColor (colorIx);
-    if (!cachedTextRectTransform) cachedTextRectTransform = textField.gameObject.GetComponent<RectTransform> ();
-    cachedTextRectTransform.anchoredPosition = new Vector2 (x, -y);
+    //TODO add \n
 
-    var firstLine = text;
-    int charLocation = text.IndexOf ('\n');
-    if (charLocation != -1) firstLine = text.Substring (0, charLocation);
+    string text= msg.ToString();
+    if(String.IsNullOrEmpty(text)) return 0;
 
-    return firstLine.Length * Tic80Config.FONT_WIDTH;
+    float textWidth = 0f;
+    foreach (var @char in text) {
+      var ch = SpriteFont.Instance.GetCharData(@char);
+      if(ch == null) continue;
+      DrawPixels (x+textWidth-1, y+Tic80Config.FONT_HEIGHT-1, ch.Data, ch.Width, 0, colorIx);
+      textWidth += @fixed ? Tic80Config.FONT_WIDTH : ch.Width;
+    }
+
+    return (int)textWidth;
   }
 
   /**

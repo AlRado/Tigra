@@ -33,7 +33,7 @@ public class ColorTest : Tic80 {
     }
   
     rect(x-2,y-2,116,10,15);
-    print("TIGRA! HELLO WORLD!",x,y,color);
+    print("TIGRA! HELLO WORLD!",x,y,color,true);
 
   }
 
