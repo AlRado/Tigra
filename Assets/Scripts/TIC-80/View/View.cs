@@ -16,12 +16,6 @@ public class View : SingletonPrefab<View> {
   private RawImage Screen;
 
   [SerializeField]
-  private RawImage RawScreen;
-
-  [SerializeField]
-  private Text Text;
-
-  [SerializeField]
   private Recorder GifRecorder;
 
   public Stats Stats {get; private set;}
@@ -47,16 +41,6 @@ public class View : SingletonPrefab<View> {
     if (Border.texture == null) Border.texture = new Texture2D (Tic80Config.BORDER_TEXTURE_WIDTH, Tic80Config.BORDER_TEXTURE_HEIGHT);
 
     return Border.texture as Texture2D;
-  }
-
-  public Texture2D GetRawScreenTexture () {
-    if (RawScreen.texture == null) RawScreen.texture = new Texture2D (Tic80Config.SCREEN_AND_BORDER_WIDTH, Tic80Config.SCREEN_AND_BORDER_HEIGHT);
-
-    return RawScreen.texture as Texture2D;
-  }
-
-  public Text GetTextField () {
-    return Text;
   }
 
   public Recorder GetGifRecorder () {

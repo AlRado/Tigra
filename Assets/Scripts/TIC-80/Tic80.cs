@@ -23,10 +23,7 @@ public abstract class Tic80 : MonoBehaviour {
 
   private Texture2D screenTexture;
 
-  private Texture2D rawScreenTexture;
-
   private Texture2D borderTexture;
-  private Text textField;
 
   private int ticCounter;
   private bool isInited;
@@ -60,9 +57,6 @@ public abstract class Tic80 : MonoBehaviour {
 
     screenTexture = View.Instance.GetScreenTexture ();
     borderTexture = View.Instance.GetBorderTexture ();
-    textField = View.Instance.GetTextField ();
-    textField.text = "";
-    rawScreenTexture = View.Instance.GetRawScreenTexture ();
 
     tic80Config = GetComponent<Tic80Config> ();
     if (!isInited) tic80Config.OnFontChange += OnFontChange;
@@ -84,7 +78,7 @@ public abstract class Tic80 : MonoBehaviour {
   }
 
   private void OnFontChange () {
-    textField.font = Fonts.GetFont (Tic80Config.Instance.Font);
+    //TODO implement
   }
 
   private void OnPaletteChange () {
@@ -104,10 +98,9 @@ public abstract class Tic80 : MonoBehaviour {
     if (!enabled || !isInited) return;
 
     if (tic80Config.DebugEnabled) {
-      print ("FPS: " + View.Instance.Stats.Fps + "\nMemory: " + View.Instance.Stats.UsedMemory, 0, 0, 6);
-    } else {
-      print ("");
-    }
+      print ("FPS: " + View.Instance.Stats.Fps, 205, 0, 6);
+      print ("Memory: " + View.Instance.Stats.UsedMemory, 187, 6, 6);
+    } 
 
     t=Time.time;
     f++;
@@ -116,15 +109,6 @@ public abstract class Tic80 : MonoBehaviour {
     ticCounter++;
 
     oldPalette=tic80Config.Palette;
-
-    StartCoroutine (CopyToRawScreenCoroutine ());
-  }
-
-  private IEnumerator CopyToRawScreenCoroutine () {
-    yield return new WaitForEndOfFrame ();
-
-    rawScreenTexture.ReadPixels (new Rect (Tic80Config.BORDER_WIDTH, Tic80Config.BORDER_HEIGHT, Tic80Config.WIDTH, Tic80Config.HEIGHT), Tic80Config.BORDER_WIDTH, Tic80Config.BORDER_HEIGHT);       
-    rawScreenTexture.Apply ();
   }
 
   protected Color32[] getClsColors (int colorIx) {
@@ -476,7 +460,7 @@ public abstract class Tic80 : MonoBehaviour {
   public int pix (float x, float y) {
     if (IsOffScreen (x, y)) return 0;
 
-    var color = rawScreenTexture.TakePixel(x + Tic80Config.BORDER_WIDTH, y +Tic80Config.BORDER_HEIGHT);
+    var color = screenTexture.TakePixel(x, y);
     return Palettes.GetColorIx (color, tic80Config.Palette);
   }
 
