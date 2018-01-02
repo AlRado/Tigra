@@ -96,9 +96,9 @@ public abstract class Tic80 : MonoBehaviour {
   private void FixedUpdate () {
     if (!enabled || !isInited) return;
 
-    if (tic80Config.DebugEnabled) {
-      print ("FPS: " + View.Instance.Stats.Fps, 205, 0, 6);
-      print ("Memory: " + View.Instance.Stats.UsedMemory, 187, 6, 6);
+    if (tic80Config.Stats) {
+      print ("FPS:" + View.Instance.Stats.Fps, 205, 0, 6, true);
+      print ("Memory:" + View.Instance.Stats.UsedMemory, 187, 6, 6, true);
     } 
 
     t=Time.time;

@@ -31,7 +31,7 @@ public class Tic80Config : MonoBehaviour {
 
   public const string COVER_PATH = "Assets/Resources/Covers/";
 
-  public bool DebugEnabled;
+  public bool Stats;
 
   public Action OnPaletteChange;
   [SerializeField]
