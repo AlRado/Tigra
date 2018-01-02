@@ -25,7 +25,6 @@ public abstract class Tic80 : MonoBehaviour {
 
   private Texture2D borderTexture;
 
-  private int ticCounter;
   private bool isInited;
 
   private Tic80Config tic80Config;
@@ -103,10 +102,9 @@ public abstract class Tic80 : MonoBehaviour {
     } 
 
     t=Time.time;
-    f++;
     Invoke("TIC", 0f);
     screenTexture.Apply ();
-    ticCounter++;
+    f++;
 
     oldPalette=tic80Config.Palette;
   }
@@ -284,12 +282,12 @@ public abstract class Tic80 : MonoBehaviour {
   public bool btnp (int id, int hold=1, int period=1) {
     var keyCode = Keys.GetKey (id);
     if (Input.GetKeyDown (keyCode)) {
-      btnpStartTic = ticCounter - 1;
+      btnpStartTic = f - 1;
       btnpDuration = hold;
       return true;
     }
 
-    if (Input.GetKey (keyCode) && (ticCounter - btnpStartTic) % btnpDuration == 0) {
+    if (Input.GetKey (keyCode) && (f - btnpStartTic) % btnpDuration == 0) {
       btnpDuration = period;
       return true;
     }
