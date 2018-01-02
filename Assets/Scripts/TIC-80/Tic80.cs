@@ -170,18 +170,26 @@ public abstract class Tic80 : MonoBehaviour {
 #endif
   }
 
-  public void DrawPixels(float x, float y, int [] colorsIx, float width, int alphaColorIx, int colorIx = -1) {
+  public void DrawPixels(float x, float y, int [] colorsIx, float width, int alphaColorIx, int colorIx = -1, int scale = 1) {
+    int _x = (int)x;
     int _y = screenTexture.TransformY(y);
-    for (int i = 0; i < colorsIx.Length; i++) {
-      var posX = x + i % width;
-      var posY = _y + i / width;
-      if (posX < 0 || posX >= screenTexture.width || posY < 0 || posY >= screenTexture.height) continue;
+    int height = colorsIx.Length/(int)width;
+    int i=0;
+    var pal = Tic80Config.Instance.Palette;
+    var alphaColor = Palettes.GetColor(alphaColorIx, pal);
+    for (int yy = 0; yy < height*scale; yy+=scale) {
+        for (int xx = 0; xx < width*scale; xx+=scale) {
+          var color = Palettes.GetColor(colorsIx[i++], pal);
+          if (!System.Object.Equals (color, alphaColor)) {
+            for (int n = 0; n < scale*scale; n++) {
+              var posX = _x + xx + n%scale;
+              var posY = _y + yy+ n/scale;
+              if (posX < 0 || posX >= screenTexture.width || posY < 0 || posY >= screenTexture.height) continue;
 
-      var pal = Tic80Config.Instance.Palette;
-      var color = Palettes.GetColor(colorsIx[i], pal);
-      var alphaColor = Palettes.GetColor(alphaColorIx, pal);
-
-      if (!System.Object.Equals (color, alphaColor)) screenTexture.SetPixel ((int)posX, (int)posY, colorIx < 0 ? color: Palettes.GetColor(colorIx, pal));
+              screenTexture.SetPixel (posX, posY, colorIx < 0 ? color: Palettes.GetColor(colorIx, pal));
+            }
+          }
+        }
     }
   }
 
@@ -328,8 +336,8 @@ public abstract class Tic80 : MonoBehaviour {
     foreach (var @char in text) {
       var ch = SpriteFont.Instance.GetCharData(@char);
       if(ch == null) continue;
-      DrawPixels (x+textWidth-1, y+Tic80Config.FONT_HEIGHT-1, ch.Data, ch.Width, 0, colorIx);
-      textWidth += @fixed ? Tic80Config.FONT_WIDTH : ch.Width;
+      DrawPixels (x+textWidth-1, y+Tic80Config.FONT_HEIGHT*scale-1, ch.Data, ch.Width, 0, colorIx, scale);
+      textWidth += @fixed ? Tic80Config.FONT_WIDTH*scale : ch.Width*scale;
     }
 
     return (int)textWidth;

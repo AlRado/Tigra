@@ -31,7 +31,11 @@ public class SpritePrintTest : Tic80 {
     cls (13);
     // print("Hello world!Hello world!Hello world! 1234567890", x, y);
     // print("Hello world!Hello world!Hello world! 1234567890", x, y+20, 5, true, 1);
-    print("Hello\n world!", x, y+30);
-    
+    print("Hello world!", x, y, 5, false, 1);
+    print("Hello world!", x, y+6, 5, true, 1);
+    print("Hello world!", x, y+12, 6, scale: 2);
+    print("Hello world!", x, y+24, 7, scale: 3);
+    print("Hello world!", x, y+48, 8, scale: 4);
+   
   }
 }
