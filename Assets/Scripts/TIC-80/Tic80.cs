@@ -334,7 +334,7 @@ public abstract class Tic80 : MonoBehaviour {
 
     float textWidth = 0f;
     foreach (var @char in text) {
-      var ch = SpriteFont.Instance.GetCharData(@char);
+      var ch = SpriteFont.Instance.GetFontItem(@char, tic80Config.Font);
       if(ch == null) continue;
       DrawPixels (x+textWidth-1, y+Tic80Config.FONT_HEIGHT*scale-1, ch.Data, ch.Width, 0, colorIx, scale);
       textWidth += @fixed ? Tic80Config.FONT_WIDTH*scale : ch.Width*scale;
