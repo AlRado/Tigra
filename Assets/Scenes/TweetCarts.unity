@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 1298327237}
   - component: {fileID: 1298327238}
   - component: {fileID: 1298327239}
+  - component: {fileID: 1298327242}
   m_Layer: 0
   m_Name: TweetCarts
   m_TagString: Untagged
@@ -259,3 +260,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RecordTime: 10
+--- !u!114 &1298327242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1298327231}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246e4f6cfb0910541808ecb7f7169677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
