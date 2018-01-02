@@ -24,11 +24,14 @@ public class Tic80Config : MonoBehaviour {
   public const int BORDER_TEXTURE_WIDTH = 8;
   public const int BORDER_TEXTURE_HEIGHT = 244;
 
+  public const int FONT_HEIGHT = 6;
   public const int FONT_WIDTH = 6;
+
+  public const Palettes.Palette DEFAULT_PALETTE = Palettes.Palette.DB16;
 
   public const string COVER_PATH = "Assets/Resources/Covers/";
 
-  public bool DebugEnabled;
+  public bool Stats;
 
   public Action OnPaletteChange;
   [SerializeField]

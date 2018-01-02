@@ -32,8 +32,8 @@ public class ColorTest : Tic80 {
       rect (i * column_width, 0, column_width, 136, i);
     }
   
-    rect(x-2,y-2,116,10,15);
-    print("TIGRA! HELLO WORLD!",x,y,color);
+    rect(x-4,y-2,116,10,15);
+    print("TIGRA! HELLO WORLD!",x,y,color,true);
 
   }
 

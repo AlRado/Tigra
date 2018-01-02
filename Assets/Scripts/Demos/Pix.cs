@@ -1,6 +1,6 @@
 ﻿public class Pix : Tic80 {
 
-  private float t = 0;
+  private float tt = 0;
 
   public override void init () {
     //Draw some background
@@ -11,8 +11,8 @@
   }
 
   public override void TIC () {
-    if (t > 12) { //wait some time
-      t = 0;
+    if (tt > 12) { //wait some time
+      tt = 0;
       for (var x = 0; x < 240; x += 2) { //every 2 pixel in width
         for (var y = 0; y < 136; y += 2) { //every 2 pixel in height
           var c = pix (x, y); //take color
@@ -21,8 +21,7 @@
         }
       }
     }
-    t++;
-
+    tt++;
   }
 
 }

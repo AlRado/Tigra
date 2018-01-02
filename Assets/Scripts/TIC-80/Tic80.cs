@@ -23,12 +23,8 @@ public abstract class Tic80 : MonoBehaviour {
 
   private Texture2D screenTexture;
 
-  private Texture2D rawScreenTexture;
-
   private Texture2D borderTexture;
-  private Text textField;
 
-  private int ticCounter;
   private bool isInited;
 
   private Tic80Config tic80Config;
@@ -60,9 +56,6 @@ public abstract class Tic80 : MonoBehaviour {
 
     screenTexture = View.Instance.GetScreenTexture ();
     borderTexture = View.Instance.GetBorderTexture ();
-    textField = View.Instance.GetTextField ();
-    textField.text = "";
-    rawScreenTexture = View.Instance.GetRawScreenTexture ();
 
     tic80Config = GetComponent<Tic80Config> ();
     if (!isInited) tic80Config.OnFontChange += OnFontChange;
@@ -84,7 +77,7 @@ public abstract class Tic80 : MonoBehaviour {
   }
 
   private void OnFontChange () {
-    textField.font = Fonts.GetFont (Tic80Config.Instance.Font);
+    //TODO implement
   }
 
   private void OnPaletteChange () {
@@ -103,28 +96,17 @@ public abstract class Tic80 : MonoBehaviour {
   private void FixedUpdate () {
     if (!enabled || !isInited) return;
 
-    if (tic80Config.DebugEnabled) {
-      print ("FPS: " + View.Instance.Stats.Fps + "\nMemory: " + View.Instance.Stats.UsedMemory, 0, 0, 6);
-    } else {
-      print ("");
-    }
+    if (tic80Config.Stats) {
+      print ("FPS:" + View.Instance.Stats.Fps, 205, 0, 6, true);
+      print ("Memory:" + View.Instance.Stats.UsedMemory, 187, 6, 6, true);
+    } 
 
     t=Time.time;
-    f++;
     Invoke("TIC", 0f);
     screenTexture.Apply ();
-    ticCounter++;
+    f++;
 
     oldPalette=tic80Config.Palette;
-
-    StartCoroutine (CopyToRawScreenCoroutine ());
-  }
-
-  private IEnumerator CopyToRawScreenCoroutine () {
-    yield return new WaitForEndOfFrame ();
-
-    rawScreenTexture.ReadPixels (new Rect (Tic80Config.BORDER_WIDTH, Tic80Config.BORDER_HEIGHT, Tic80Config.WIDTH, Tic80Config.HEIGHT), Tic80Config.BORDER_WIDTH, Tic80Config.BORDER_HEIGHT);       
-    rawScreenTexture.Apply ();
   }
 
   protected Color32[] getClsColors (int colorIx) {
@@ -184,6 +166,29 @@ public abstract class Tic80 : MonoBehaviour {
     var setIcon = egu.GetMethod ("SetIconForObject", flags, null, new Type[] { typeof (UnityEngine.Object), typeof (Texture2D) }, null);
     setIcon.Invoke (null, args);
 #endif
+  }
+
+  public void DrawPixels(float x, float y, int [] colorsIx, float width, int alphaColorIx, int colorIx = -1, int scale = 1) {
+    int _x = (int)x;
+    int _y = screenTexture.TransformY(y);
+    int height = colorsIx.Length/(int)width;
+    int i=0;
+    var pal = Tic80Config.Instance.Palette;
+    var alphaColor = Palettes.GetColor(alphaColorIx, pal);
+    for (int yy = 0; yy < height*scale; yy+=scale) {
+        for (int xx = 0; xx < width*scale; xx+=scale) {
+          var color = Palettes.GetColor(colorsIx[i++], pal);
+          if (!System.Object.Equals (color, alphaColor)) {
+            for (int n = 0; n < scale*scale; n++) {
+              var posX = _x + xx + n%scale;
+              var posY = _y + yy+ n/scale;
+              if (posX < 0 || posX >= screenTexture.width || posY < 0 || posY >= screenTexture.height) continue;
+
+              screenTexture.SetPixel (posX, posY, colorIx < 0 ? color: Palettes.GetColor(colorIx, pal));
+            }
+          }
+        }
+    }
   }
 
   #region API Delegates
@@ -277,12 +282,12 @@ public abstract class Tic80 : MonoBehaviour {
   public bool btnp (int id, int hold=1, int period=1) {
     var keyCode = Keys.GetKey (id);
     if (Input.GetKeyDown (keyCode)) {
-      btnpStartTic = ticCounter - 1;
+      btnpStartTic = f - 1;
       btnpDuration = hold;
       return true;
     }
 
-    if (Input.GetKey (keyCode) && (ticCounter - btnpStartTic) % btnpDuration == 0) {
+    if (Input.GetKey (keyCode) && (f - btnpStartTic) % btnpDuration == 0) {
       btnpDuration = period;
       return true;
     }
@@ -320,19 +325,20 @@ public abstract class Tic80 : MonoBehaviour {
    * https://github.com/nesbox/TIC-80/wiki/print
    */
   public int print (object msg, float x = 0, float y = 0, int colorIx = 15, bool @fixed = false, int scale = 1) {
-    // в данной реализации работает только с фиксированным размером fixed=true
-    // пока можно использовать print только один раз :( 
-    var text = msg.ToString();
-    textField.text = text;
-    textField.color = GetColor (colorIx);
-    if (!cachedTextRectTransform) cachedTextRectTransform = textField.gameObject.GetComponent<RectTransform> ();
-    cachedTextRectTransform.anchoredPosition = new Vector2 (x, -y);
+    //TODO add \n
 
-    var firstLine = text;
-    int charLocation = text.IndexOf ('\n');
-    if (charLocation != -1) firstLine = text.Substring (0, charLocation);
+    string text= msg.ToString();
+    if(String.IsNullOrEmpty(text)) return 0;
 
-    return firstLine.Length * Tic80Config.FONT_WIDTH;
+    float textWidth = 0f;
+    foreach (var @char in text) {
+      var ch = SpriteFont.Instance.GetFontItem(@char, tic80Config.Font);
+      if(ch == null) continue;
+      DrawPixels (x+textWidth-1, y+Tic80Config.FONT_HEIGHT*scale-1, ch.Data, ch.Width, 0, colorIx, scale);
+      textWidth += @fixed ? Tic80Config.FONT_WIDTH*scale : ch.Width*scale;
+    }
+
+    return (int)textWidth;
   }
 
   /**
@@ -460,7 +466,7 @@ public abstract class Tic80 : MonoBehaviour {
   public int pix (float x, float y) {
     if (IsOffScreen (x, y)) return 0;
 
-    var color = rawScreenTexture.TakePixel(x + Tic80Config.BORDER_WIDTH, y +Tic80Config.BORDER_HEIGHT);
+    var color = screenTexture.TakePixel(x, y);
     return Palettes.GetColorIx (color, tic80Config.Palette);
   }
 

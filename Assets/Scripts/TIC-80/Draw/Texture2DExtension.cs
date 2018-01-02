@@ -341,6 +341,10 @@ public static class Texture2DExtension {
     return height - 1 - y;
   }
 
+  public static int TransformY (this Texture2D texture, float y) {
+    return texture.height - 1 - (int)y;
+  }
+
   private struct Point {
     public int x;
     public int y;
