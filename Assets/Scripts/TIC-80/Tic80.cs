@@ -383,13 +383,33 @@ public abstract class Tic80 : MonoBehaviour {
    * https://github.com/nesbox/TIC-80/wiki/spr
    */
   public void spr (int id, float x, float y, int alpha_color = -1, int scale = 1, int flip = 0, int rotate = 0, int cell_width = 1, int cell_height = 1) {
-    //TODO implement FLIP & ROTATE
+    //TODO implement ROTATE
+    var size=Tic80Config.SPRITE_SIZE;
+
     for (int cy = 0; cy < cell_height; cy++) {
       for (int cx = 0; cx < cell_width; cx++) {
         var spr = Sprites.Instance.GetSpriteItem (id+cx+cy*16);
-        DrawPixels (x+cx*Tic80Config.SPRITE_SIZE*scale, y+cy*Tic80Config.SPRITE_SIZE*scale + Tic80Config.SPRITE_SIZE*scale - 1, spr.Data, spr.Width, alpha_color, scale: scale);
+        var data = FlipData(spr.Data, flip);
+        var _cx = flip==1 || flip==3 ? cell_width-1-cx:cx;
+        var _cy = flip==2 || flip==3 ? cell_height-1-cy:cy;
+        DrawPixels (x+_cx*size*scale, y+_cy*size*scale + size*scale - 1, data, spr.Width, alpha_color, scale: scale);
       }
     }
+  }
+
+  private int[] FlipData(int[] data, int flip) {
+    if (flip==0) return data;
+
+    var res = new int[data.Length];
+    var size=Tic80Config.SPRITE_SIZE;
+    for (int y = 0; y < size; y++) {
+      for (int x = 0; x < size; x++) { 
+        var _x = flip==1 || flip==3 ?size - 1 - x : x;
+        var _y = flip==2 || flip==3 ?size - 1 - y : y;
+        res[_x + _y * size] = data[x + y * size];
+      }
+    }
+    return res;
   }
 
   /**

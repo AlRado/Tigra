@@ -141,6 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c943d8ce0bca884b9a7e53fab06f743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Flip: 0
+  Rotate: 0
 --- !u!114 &846910770
 MonoBehaviour:
   m_ObjectHideFlags: 0
