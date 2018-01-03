@@ -383,7 +383,13 @@ public abstract class Tic80 : MonoBehaviour {
    * https://github.com/nesbox/TIC-80/wiki/spr
    */
   public void spr (int id, float x, float y, int alpha_color = -1, int scale = 1, int flip = 0, int rotate = 0, int cell_width = 1, int cell_height = 1) {
-    trace ("function 'spr' not implemented");
+    //TODO implement FLIP & ROTATE
+    for (int cy = 0; cy < cell_height; cy++) {
+      for (int cx = 0; cx < cell_width; cx++) {
+        var spr = Sprites.Instance.GetSpriteItem (id+cx+cy*16);
+        DrawPixels (x+cx*Tic80Config.SPRITE_SIZE*scale, y+cy*Tic80Config.SPRITE_SIZE*scale + Tic80Config.SPRITE_SIZE*scale - 1, spr.Data, spr.Width, alpha_color, scale: scale);
+      }
+    }
   }
 
   /**
