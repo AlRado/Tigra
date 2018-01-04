@@ -5,14 +5,11 @@ using System.Linq;
 using UnityEngine;
 #endregion
 
-// title:  #PROJECTNAME# v.#VERSION#
-// author: #AUTHOR#
-// desc:   Date: #CREATIONDATE#
-// script: C#
-
 class SpriteTest : Tic80 {
 
+  [Range(0,3)]
   public int Flip;
+  [Range(0,3)]
   public int Rotate;
 
   int x = 96;
@@ -25,8 +22,7 @@ class SpriteTest : Tic80 {
     if (btn (3)) x++;
 
     cls (13);
-    // spr (1 + f % 60 / 30 * 2, x, y, 14, 3, 0, 0, 2, 2);
-    spr (1 + f % 60 / 30 * 2, x, y, alpha_color: 14, scale: 3, flip:Flip, rotate:Rotate, cell_width:2, cell_height: 2);
+    spr (1 + f % 60 / 30 * 2, x, y, 14, 3, Flip, Rotate, 2, 2);
     print ("HELLO WORLD!", 84, 84);
   }
 }

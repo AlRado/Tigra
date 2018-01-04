@@ -28,6 +28,7 @@ public class Tic80Config : MonoBehaviour {
   public const int FONT_WIDTH = 6;
 
   public const int SPRITE_SIZE = 8;
+  public const int SPRITE_COLUMN_COUNT = 16;
 
   public const Palettes.Palette DEFAULT_PALETTE = Palettes.Palette.DB16;
 
