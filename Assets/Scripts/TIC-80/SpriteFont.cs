@@ -12,7 +12,7 @@ public class SpriteFont : SingletonPrefab<SpriteFont> {
       [HideInInspector]
       public string Name;
       [HideInInspector]
-      public int[] Data;
+      public byte[] Data;
       [HideInInspector]
       public float Width;
       [HideInInspector]
@@ -174,7 +174,7 @@ public class SpriteFont : SingletonPrefab<SpriteFont> {
       return fontsDict[type].GetFontItem (@char);
     }
 
-    private int[] GetSprColorsIxs (Sprite x){
+    private byte[] GetSprColorsIxs (Sprite x){
       var colors = GetSprColors (x);
       var colorsIxs = colors.Select (c => Palettes.GetColorIx (c, Tic80Config.DEFAULT_PALETTE));
       return colorsIxs.ToArray ();

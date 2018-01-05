@@ -168,7 +168,7 @@ public abstract class Tic80 : MonoBehaviour {
 #endif
   }
 
-  public void DrawPixels(float x, float y, int [] colorsIx, float width, int alphaColorIx, int colorIx = -1, int scale = 1) {
+  public void DrawPixels(float x, float y, byte [] colorsIx, float width, int alphaColorIx, int colorIx = -1, int scale = 1) {
     int _x = (int)x;
     int _y = screenTexture.TransformY(y);
     int height = colorsIx.Length/(int)width;
@@ -189,6 +189,37 @@ public abstract class Tic80 : MonoBehaviour {
           }
         }
     }
+  }
+
+  public void DS (float x, float y, int alphaIx, string spriteStr, int scale=1) {
+    DrawSprite ( x,  y, alphaIx,  spriteStr, scale);
+  }
+
+  public void DrawSprite (float x, float y, int alphaIx, string spriteStr, int scale=1) {
+    var SHIFT=32;
+    var bytes = new byte[64];
+    for (int i = 0; i < bytes.Length; i+=2) {
+      var data = Convert.ToInt32(spriteStr[i/2])-SHIFT;
+      bytes[i]   = Convert.ToByte ((data & 0xF0) >> 4);
+      bytes[i+1] = Convert.ToByte (data & 0xF);
+    }
+    DrawPixels (x, y, bytes, Tic80Config.SPRITE_SIZE, alphaIx, scale:scale);
+  }
+
+  public string DumpSprite (int ix) {
+    var SHIFT=32;
+    var spr = Sprites.Instance.GetSpriteItem (ix);
+    var charArray = new char[32];
+    for (int i = 0; i < spr.Data.Length; i += 2) {
+      var a = Convert.ToInt32 (spr.Data[i]) << 4;
+      var b = Convert.ToInt32 (spr.Data[i + 1]);
+      charArray[i/2] = Convert.ToChar (a + b + SHIFT);
+    }
+    var text = new string (charArray);
+    Debug.Log (text);
+    GUIUtility.systemCopyBuffer = text;
+
+    return text;
   }
 
   #region API Delegates
@@ -415,10 +446,10 @@ public abstract class Tic80 : MonoBehaviour {
     }
   }
 
-  private int[] FlipData(int[] data, int flip) {
+  private byte[] FlipData(byte[] data, int flip) {
     if (flip==0) return data;
 
-    var res = new int[data.Length];
+    var res = new byte[data.Length];
     var size=Tic80Config.SPRITE_SIZE;
     for (int y = 0; y < size; y++) {
       for (int x = 0; x < size; x++) { 
@@ -430,8 +461,8 @@ public abstract class Tic80 : MonoBehaviour {
     return res;
   }
 
-  private int[] RotateDataClockWise(int[] data) {
-    var res = new int[data.Length];
+  private byte[] RotateDataClockWise(byte[] data) {
+    var res = new byte[data.Length];
     var size=Tic80Config.SPRITE_SIZE;
     for (int x = 0; x < size; x++) {
       for (int y = 0; y < size; y++) { 
