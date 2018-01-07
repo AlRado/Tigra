@@ -62,10 +62,10 @@ public class Palettes : MonoBehaviour {
     return palette[newColorIx];
   }
 
-  public static int GetColorIx (Color32 color, Palette palType) {
+  public static byte GetColorIx (Color32 color, Palette palType) {
     var palette = COLORS[palType];
 
-    return palette.FindIndex (c => Object.Equals (c, color));
+    return (byte)palette.FindIndex (c => Object.Equals (c, color));
   }
 
 }

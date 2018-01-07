@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -168,7 +169,7 @@ public abstract class Tic80 : MonoBehaviour {
 #endif
   }
 
-  public void DrawPixels(float x, float y, int [] colorsIx, float width, int alphaColorIx, int colorIx = -1, int scale = 1) {
+  public void DrawPixels(float x, float y, byte [] colorsIx, float width, int alphaColorIx, int colorIx = -1, int scale = 1) {
     int _x = (int)x;
     int _y = screenTexture.TransformY(y);
     int height = colorsIx.Length/(int)width;
@@ -189,6 +190,63 @@ public abstract class Tic80 : MonoBehaviour {
           }
         }
     }
+  }
+
+  public void DS (float x, float y, int alphaIx, string spriteStr, int scale=1) {
+    DrawSprite ( x,  y, alphaIx,  spriteStr, scale);
+  }
+
+  public void DrawSprite (float x, float y, int alphaIx, string spriteStr, int scale=1) {
+    if(spriteStr.Length < 16) Debug.LogError("Sprite string NOT correct, please change sprite/palette and try dump sprite again.");
+
+    byte[] reducedBytes;
+    if (spriteStr.Length == 16){
+      reducedBytes = Encoding.Unicode.GetBytes(spriteStr);
+    } else {
+      reducedBytes = Convert.FromBase64String(spriteStr);
+    }
+
+    var bytes = new byte[64];
+    for (int i = 0; i < bytes.Length; i+=2) {
+      var data = Convert.ToInt32(reducedBytes[i/2]);
+      bytes[i]   = Convert.ToByte ((data & 0xF0) >> 4);
+      bytes[i+1] = Convert.ToByte (data & 0xF);
+    }
+    DrawPixels (x, y, bytes, Tic80Config.SPRITE_SIZE, alphaIx, scale:scale);
+  }
+
+  public string DumpSprite (int ix) {
+    var spr = Sprites.Instance.GetSpriteItem (ix);
+    var text = DumpSpriteData(spr.Data);
+
+    return text;
+  }
+
+  public string DumpSpriteData (byte[] sprData) {
+    var bytes = ReduceSpriteData(sprData);
+    string text = String.Empty;
+    try {
+      text = Encoding.Unicode.GetString(bytes);
+      Debug.Log (text);
+      GUIUtility.systemCopyBuffer = text;
+    
+    } catch (Exception ex) {
+      Debug.LogWarning("I can't correctly convert sprite to UTF-16 string with length 16 chars. Edit sprite and try again or use this string with length 44 chars.");
+      text = Convert.ToBase64String(bytes);
+      Debug.Log (text);
+      GUIUtility.systemCopyBuffer = text;
+    }
+    return text;
+  }
+
+  public byte[] ReduceSpriteData (byte[] sprData) {
+    var bytes = new byte[32];
+    for (int i = 0; i < sprData.Length; i += 2) {
+      var a_h = sprData[i] << 4;
+      var a_l = sprData[i+1];
+      bytes[i/2] = Convert.ToByte(a_h + a_l);
+    }
+    return bytes;
   }
 
   #region API Delegates
@@ -415,10 +473,10 @@ public abstract class Tic80 : MonoBehaviour {
     }
   }
 
-  private int[] FlipData(int[] data, int flip) {
+  private byte[] FlipData(byte[] data, int flip) {
     if (flip==0) return data;
 
-    var res = new int[data.Length];
+    var res = new byte[data.Length];
     var size=Tic80Config.SPRITE_SIZE;
     for (int y = 0; y < size; y++) {
       for (int x = 0; x < size; x++) { 
@@ -430,8 +488,8 @@ public abstract class Tic80 : MonoBehaviour {
     return res;
   }
 
-  private int[] RotateDataClockWise(int[] data) {
-    var res = new int[data.Length];
+  private byte[] RotateDataClockWise(byte[] data) {
+    var res = new byte[data.Length];
     var size=Tic80Config.SPRITE_SIZE;
     for (int x = 0; x < size; x++) {
       for (int y = 0; y < size; y++) { 

@@ -8,7 +8,7 @@ public class Sprites : SingletonPrefab<Sprites> {
 
   public class SpriteItem {
     public int Id;
-    public int[] Data;
+    public byte[] Data;
     public float Width;
 
     public SpriteItem (Sprite sprite) {
@@ -17,7 +17,7 @@ public class Sprites : SingletonPrefab<Sprites> {
       Width = sprite.textureRect.width;
     }
 
-    private int[] GetSprColorsIxs (Sprite x) {
+    private byte[] GetSprColorsIxs (Sprite x) {
       var colors = GetSprColors (x);
       var colorsIxs = colors.Select (c => Palettes.GetColorIx (c, Tic80Config.DEFAULT_PALETTE)).ToArray ();
       return colorsIxs;
