@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -196,10 +197,15 @@ public abstract class Tic80 : MonoBehaviour {
   }
 
   public void DrawSprite (float x, float y, int alphaIx, string spriteStr, int scale=1) {
-    var SHIFT=32;
+    var newBytes = new List<byte>();
+    var spriteBytes = Encoding.Unicode.GetBytes(spriteStr);
+    for (int i = 0; i < spriteBytes.Length ; i++) {
+      if (i % 5 != 0) newBytes.Add(spriteBytes[i]);
+    }
+
     var bytes = new byte[64];
     for (int i = 0; i < bytes.Length; i+=2) {
-      var data = Convert.ToInt32(spriteStr[i/2])-SHIFT;
+      var data = Convert.ToInt32(newBytes[i/2]);
       bytes[i]   = Convert.ToByte ((data & 0xF0) >> 4);
       bytes[i+1] = Convert.ToByte (data & 0xF);
     }
@@ -207,19 +213,31 @@ public abstract class Tic80 : MonoBehaviour {
   }
 
   public string DumpSprite (int ix) {
-    var SHIFT=32;
-    var spr = Sprites.Instance.GetSpriteItem (ix);
-    var charArray = new char[32];
-    for (int i = 0; i < spr.Data.Length; i += 2) {
-      var a = Convert.ToInt32 (spr.Data[i]) << 4;
-      var b = Convert.ToInt32 (spr.Data[i + 1]);
-      charArray[i/2] = Convert.ToChar (a + b + SHIFT);
-    }
-    var text = new string (charArray);
+    var bytes = ReduceSpriteData(ix);
+    var text = Encoding.Unicode.GetString(bytes);
+
     Debug.Log (text);
     GUIUtility.systemCopyBuffer = text;
 
     return text;
+  }
+
+  public byte[] ReduceSpriteData (int ix) {
+    var spr = Sprites.Instance.GetSpriteItem (ix);
+    var bytes = new List<byte>();
+    for (int i = 0; i < spr.Data.Length; i += 2) {
+      var a_h = spr.Data[i] << 4;
+      var a_l = spr.Data[i+1];
+      bytes.Add(Convert.ToByte(a_h + a_l));
+    }
+
+    var newBytes = new List<byte>();
+    for (int i = 0; i < bytes.Count; i++) {
+      if (i % 4 == 0) newBytes.Add(1);
+      newBytes.Add(bytes[i]);
+    }
+
+    return newBytes.ToArray();
   }
 
   #region API Delegates
