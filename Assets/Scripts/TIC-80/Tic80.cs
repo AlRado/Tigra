@@ -197,6 +197,8 @@ public abstract class Tic80 : MonoBehaviour {
   }
 
   public void DrawSprite (float x, float y, int alphaIx, string spriteStr, int scale=1) {
+    if(spriteStr.Length < 16) Debug.LogError("Sprite string NOT correct, please change sprite/palette and try dump sprite again.");
+
     byte[] reducedBytes;
     if (spriteStr.Length == 16){
       reducedBytes = Encoding.Unicode.GetBytes(spriteStr);

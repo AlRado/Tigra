@@ -50,6 +50,6 @@ using B = System.Boolean;
  * Beautify/minify C# online tool:
  * https://codebeautify.org/csharpviewer
  */
-class Tc8:Z{I x=96,y=44,s=24,a=14;void TIC(){cls(5);if(btn(0))y--;if(btn(1))y++;if(btn(2))x--;if(btn(3))x++;DS(x,y,a,"࿿ǿ￸／࿿ǿ￸￿∢Ģ裸袈！∢Ģ￯￿",3);DS(x+s,y,a,"༁࿸ď༏༁࿸ď／∁༨Ǯ袈∁ＢǮ￿",3);DS(x,y+s,a,"￿ǯÿ／∢Ģ裸袈辈ǿ裸裸袈ƈ￸￿",3);DS(x+s,y+s,a,"！Ǯༀ∁ＢǮ袈蠁ྈǮ裸蠁ྈǾ＀",3);}}
+class Tc8:Z{I x=96,y=44,s=24,a=14;void TIC(){cls(6);if(btn(0))y--;if(btn(1))y++;if(btn(2))x--;if(btn(3))x++;DS(x,y,a,"પ 䐄䑄䑄ꏮ䑄ꫮ",3);DS(x+s,y,a,"㺪䌄䍄㹄ꍃꋪ",3);DS(x,y+s,a,"㹄껿￿袈㻤㢈ｄ㢨ｄ㫺㻤䓤",3);DS(x+s,y+s,a,"䍄껿껿㺈㺈㻤ﾊ䏴ﾯ䋴㻤",3);}}
 
 
