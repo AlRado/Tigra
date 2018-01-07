@@ -197,15 +197,16 @@ public abstract class Tic80 : MonoBehaviour {
   }
 
   public void DrawSprite (float x, float y, int alphaIx, string spriteStr, int scale=1) {
-    var newBytes = new List<byte>();
-    var spriteBytes = Encoding.Unicode.GetBytes(spriteStr);
-    for (int i = 0; i < spriteBytes.Length ; i++) {
-      if (i % 5 != 0) newBytes.Add(spriteBytes[i]);
+    byte[] reducedBytes;
+    if (spriteStr.Length == 16){
+      reducedBytes = Encoding.Unicode.GetBytes(spriteStr);
+    } else {
+      reducedBytes = Convert.FromBase64String(spriteStr);
     }
 
     var bytes = new byte[64];
     for (int i = 0; i < bytes.Length; i+=2) {
-      var data = Convert.ToInt32(newBytes[i/2]);
+      var data = Convert.ToInt32(reducedBytes[i/2]);
       bytes[i]   = Convert.ToByte ((data & 0xF0) >> 4);
       bytes[i+1] = Convert.ToByte (data & 0xF);
     }
@@ -213,31 +214,37 @@ public abstract class Tic80 : MonoBehaviour {
   }
 
   public string DumpSprite (int ix) {
-    var bytes = ReduceSpriteData(ix);
-    var text = Encoding.Unicode.GetString(bytes);
-
-    Debug.Log (text);
-    GUIUtility.systemCopyBuffer = text;
+    var spr = Sprites.Instance.GetSpriteItem (ix);
+    var text = DumpSpriteData(spr.Data);
 
     return text;
   }
 
-  public byte[] ReduceSpriteData (int ix) {
-    var spr = Sprites.Instance.GetSpriteItem (ix);
-    var bytes = new List<byte>();
-    for (int i = 0; i < spr.Data.Length; i += 2) {
-      var a_h = spr.Data[i] << 4;
-      var a_l = spr.Data[i+1];
-      bytes.Add(Convert.ToByte(a_h + a_l));
+  public string DumpSpriteData (byte[] sprData) {
+    var bytes = ReduceSpriteData(sprData);
+    string text = String.Empty;
+    try {
+      text = Encoding.Unicode.GetString(bytes);
+      Debug.Log (text);
+      GUIUtility.systemCopyBuffer = text;
+    
+    } catch (Exception ex) {
+      Debug.LogWarning("I can't correctly convert sprite to UTF-16 string with length 16 chars. Edit sprite and try again or use this string with length 44 chars.");
+      text = Convert.ToBase64String(bytes);
+      Debug.Log (text);
+      GUIUtility.systemCopyBuffer = text;
     }
+    return text;
+  }
 
-    var newBytes = new List<byte>();
-    for (int i = 0; i < bytes.Count; i++) {
-      if (i % 4 == 0) newBytes.Add(1);
-      newBytes.Add(bytes[i]);
+  public byte[] ReduceSpriteData (byte[] sprData) {
+    var bytes = new byte[32];
+    for (int i = 0; i < sprData.Length; i += 2) {
+      var a_h = sprData[i] << 4;
+      var a_l = sprData[i+1];
+      bytes[i/2] = Convert.ToByte(a_h + a_l);
     }
-
-    return newBytes.ToArray();
+    return bytes;
   }
 
   #region API Delegates

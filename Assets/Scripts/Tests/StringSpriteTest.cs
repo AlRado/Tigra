@@ -13,22 +13,33 @@ using UnityEngine;
 // script: C#
 
 class StringSpriteTest : Tic80 {
-  int x = 96, y = 44, s = 24, a = 14;
+  int x = 96, y = 44, s = 24, a = -1;
 
   void init () {
     // DrawSprite (x, y, a, DumpSprite(1), 3); 
+
+    StartCoroutine(drawRndSpriteCoroutine());
   }
 
-  void TIC () {
-    cls (5);
-    if (btn (0)) y--;
-    if (btn (1)) y++;
-    if (btn (2)) x--;
-    if (btn (3)) x++;
-
-    DrawSprite (x, y, a, "࿿ǿ￸／࿿ǿ￸￿∢Ģ裸袈！∢Ģ￯￿", 3);
-    DrawSprite (x + s, y, a, "༁࿸ď༏༁࿸ď／∁༨Ǯ袈∁ＢǮ￿", 3);
-    DrawSprite (x, y + s, a, "￿ǯÿ／∢Ģ裸袈辈ǿ裸裸袈ƈ￸￿", 3);
-    DrawSprite (x + s, y + s, a, "！Ǯༀ∁ＢǮ袈蠁ྈǮ裸蠁ྈǾ＀", 3);
+  IEnumerator drawRndSpriteCoroutine () {
+    string dumpedSpr;
+    int count = 1000;
+    for (int i = 0; i < count; i++) {
+      dumpedSpr = DumpSpriteData(GetRndSprData());
+      DrawSprite (x, y, a, dumpedSpr, 3);
+      yield return 0;
+    }
   }
+
+  private byte[] GetRndSprData () {
+    byte[] data = new byte[64];
+    var count = 64 * 64;
+    for (int i = 0; i < count; i++) {
+      var val = UnityEngine.Random.RandomRange (0, 16);
+      var pos = UnityEngine.Random.RandomRange (0, data.Length);
+      data[pos] = Convert.ToByte(val);
+    }
+    return data;
+  }
+
 }
