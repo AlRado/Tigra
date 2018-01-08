@@ -206,12 +206,7 @@ public abstract class Tic80 : MonoBehaviour {
       reducedBytes = Convert.FromBase64String(spriteStr);
     }
 
-    var bytes = new byte[64];
-    for (int i = 0; i < bytes.Length; i+=2) {
-      var data = Convert.ToInt32(reducedBytes[i/2]);
-      bytes[i]   = Convert.ToByte ((data & 0xF0) >> 4);
-      bytes[i+1] = Convert.ToByte (data & 0xF);
-    }
+    var bytes = ExpandSpriteData(reducedBytes);
     DrawPixels (x, y, bytes, Tic80Config.SPRITE_SIZE, alphaIx, scale:scale);
   }
 
@@ -248,6 +243,17 @@ public abstract class Tic80 : MonoBehaviour {
     }
     return bytes;
   }
+
+  public byte[] ExpandSpriteData (byte[] reducedBytes) {
+    var bytes = new byte[64];
+    for (int i = 0; i < bytes.Length; i+=2) {
+      var data = Convert.ToInt32(reducedBytes[i/2]);
+      bytes[i] = Convert.ToByte ((data & 0xF0) >> 4);
+      bytes[i+1] = Convert.ToByte (data & 0xF);
+    }
+    return bytes;
+  }
+
 
   #region API Delegates
 
